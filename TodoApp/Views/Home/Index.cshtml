@@ -1,0 +1,144 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+
+    var test = "jesse.harlan@centralia.edu";
+
+    var obj = new Todo();
+    obj.Name = "Get Milk";
+    obj.IsDone = true;
+    obj.Description = "Need milk for cereal";
+    obj.LocationId = 1;
+    obj.CreatedOn = DateTime.Now;
+
+    var badIdea = "<strong>I Am Bold</strong>";
+
+    var quote = "raw html is a bad idea - jesse";
+
+    void RenderName(string name)
+    {
+        <p>Name: <strong>@name</strong></p>
+    }
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome @test</h1>
+    <p>@test</p>
+    @*<a href="mailto:@test">mail me</a>*@
+    <p>The date is: @DateTime.IsLeapYear(2016)</p>
+    <p>Last week this time was: @(DateTime.Now - TimeSpan.FromDays(7))</p>
+
+    <p>Name: @obj.Name</p>
+    <p>Description: @obj.Description</p>
+    <p>ToString: @obj.ToString()</p>
+
+    <p>No Special Encoding: @badIdea</p>
+    <p>With Encoding (major security flaw): @Html.Raw(badIdea)</p>
+
+    <p>@quote</p>
+
+    @{
+        quote = "Raw html is a really bad idea - also jesse";
+    }
+
+    <p>@quote</p>
+
+    <ul>
+        <li>@{RenderName("Jesse");}</li>
+        <li>@{RenderName("Sarah");}</li>
+    </ul>
+
+    @{
+        var inCode = true;
+        <p>Now in html, this is @inCode</p>
+    }
+
+    @*Conditionals*@
+
+    @{
+        var boolVal = true;
+
+        var intVal = 10;
+        var limit = 100;
+    }
+
+    @if (boolVal)
+    {
+        <h1>The boolean was true</h1>
+    }
+
+    @if(intVal > limit)
+    {
+        <h1>Limit was exceeded, should not see this</h1>
+    }
+    else if (intVal == 11)
+    {
+        <h1>IntVal is 11</h1>
+    }
+    else
+    {
+        <h1>IntVal is not 11</h1>
+    }
+
+    @switch(intVal)
+    {
+        case 10:
+            <p>int val is 10</p>
+            break;
+        case 11:
+            <p>int val is 11</p>
+            break;
+        default:
+            <p>int val is something else</p>
+            break;
+    }
+
+    <ul>
+        @for (var i = 0; i < intVal; i++)
+        {
+            <li>@i</li>
+        }
+    </ul>
+
+    @{
+        List<string> data = new List<string>();
+
+        data.Add("one");
+        data.Add("two");
+        data.Add("three");
+    }
+
+    <ul>
+        @foreach (var item in data)
+        {
+            <li>@item</li>
+        }
+    </ul>
+
+    @{
+        var j = 0;
+    }
+    @while (j < data.Count)
+    {
+        <p>Has data at index @j</p>
+        j++;
+    }
+
+    @do
+    {
+        <p>Do while was ran</p>
+    } while (j < data.Count);
+
+
+    @try
+    {
+        throw new InvalidOperationException("this is breaking");
+    }
+    catch (Exception ex)
+    {
+        <p>An exception was thrown: @ex.Message</p>
+    }
+    finally
+    {
+        <p>The finally statement was run</p>
+    }
+</div>
