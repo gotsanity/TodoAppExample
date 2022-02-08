@@ -12,7 +12,11 @@ using TodoApp.Models;
 
 namespace TodoApp.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator, PowerUser")] // either or
+    //[Authorize(Roles = "Administrator")] // requires both
+    //[Authorize(Roles = "PowerUser")] // requires both
+    //[Authorize(Policy = "RequireAdministratorRole")]
+    //[Authorize(Policy = "OnlyJesse")]
     public class LocationsController : Controller
     {
         private readonly TodoAppContext _context;
