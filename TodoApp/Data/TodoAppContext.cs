@@ -9,7 +9,7 @@ using TodoApp.Models;
 
 namespace TodoApp.Data
 {
-    public class TodoAppContext : IdentityDbContext
+    public class TodoAppContext : IdentityDbContext<AppUser>
     {
         public TodoAppContext (DbContextOptions<TodoAppContext> options)
             : base(options)
@@ -19,5 +19,10 @@ namespace TodoApp.Data
         public DbSet<TodoApp.Models.Todo> Todo { get; set; }
 
         public DbSet<TodoApp.Models.Location> Location { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
     }
 }
